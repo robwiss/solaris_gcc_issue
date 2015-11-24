@@ -8,9 +8,9 @@
 MyData Impl::func(const std::string &xml) const
 {
     // Load xml document
-    auto doc = scoped_cptr<xmlDoc>(
+    std::shared_ptr<xmlDoc> doc = scoped_cptr<xmlDoc>(
 	/*xmlReadMemory(xml.c_str(), xml.size() + 1, "noname.xml", nullptr, 0)*/ nullptr,
-        /*xmlFreeDoc*/ nullptr
+        /*xmlFreeDoc*/ [](xmlDocPtr ptr) { if (nullptr != ptr) { xmlFreeDoc(ptr); } }
     );
     if (nullptr == doc)
     {
