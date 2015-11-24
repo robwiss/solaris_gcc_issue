@@ -22,10 +22,10 @@ export PATH="/opt/csw/bin/amd64:$PATH"
 
 ## Compilers tested
 
-opencsw gcc 4.8.2 - issue does not occur
-opencsw gcc 4.9.0 - issue occurs
-opencsw gcc 4.9.2 - issue occurs
-opencsw gcc 5.2.0 - issue occurs
+* opencsw gcc 4.8.2 - issue does not occur
+* opencsw gcc 4.9.0 - issue occurs
+* opencsw gcc 4.9.2 - issue occurs
+* opencsw gcc 5.2.0 - issue occurs
 
 # Building and running
 
