@@ -61,9 +61,6 @@ Run make:
 Run the program:
 ```
 -bash-3.2$ ./minimal 
-noname.xml:2: parser error : Start tag expected, '<' not found
- BadTag>
- ^
 Segmentation Fault (core dumped)
 ```
 
@@ -91,36 +88,37 @@ Breakpoint 1 at 0x401f65: file /projects/solaris_gcc_issue/minimal.cc, line 17.
 ...
 17              throw MyException("ohno");
 (gdb) s
-14          );
+18          }
 (gdb) s
-std::shared_ptr<_xmlDoc>::~shared_ptr (this=0xfffffd7fffdff9f0, 
+std::shared_ptr<_xmlDoc>::~shared_ptr (this=0xfffffd7fffdffa20, 
     __in_chrg=<optimized out>)
-    at /opt/csw/include/c++/5.2.0/bits/shared_ptr.h:93
+    at /opt/csw/include/c++/4.9.0/bits/shared_ptr.h:93
 93          class shared_ptr : public __shared_ptr<_Tp>
 (gdb) fin
 Run till exit from #0  std::shared_ptr<_xmlDoc>::~shared_ptr (
-    this=0xfffffd7fffdff9f0, __in_chrg=<optimized out>)
-    at /opt/csw/include/c++/5.2.0/bits/shared_ptr.h:93
-0xfffffd7fff347f4d in Impl::func (this=0xfffffd7fffdffa50, xml=...)
-    at /projects/solaris_gcc_issue/Impl.cc:14
-14          );
+    this=0xfffffd7fffdffa20, __in_chrg=<optimized out>)
+    at /opt/csw/include/c++/4.9.0/bits/shared_ptr.h:93
+0xfffffd7fff347b83 in Impl::func (this=0xfffffd7fffdffa70, xml=...)
+    at /projects/solaris_gcc_issue/Impl.cc:18
+18          }
 (gdb) s
 19      }
-(gdb) s
-MyData::~MyData (this=0xfffffd7fffdffa60, __in_chrg=<optimized out>)
+(gdb) 
+MyData::~MyData (this=0xfffffd7fffdffa80, __in_chrg=<optimized out>)
     at /projects/solaris_gcc_issue/MyData.h:7
 7       struct MyData
 (gdb) s
-std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::~vector (this=0xfffffd7fffdffa60, 
-    __in_chrg=<optimized out>)
-    at /opt/csw/include/c++/5.2.0/bits/stl_vector.h:425
+std::vector<std::string, std::allocator<std::string> >::~vector (
+    this=0xfffffd7fffdffa80, __in_chrg=<optimized out>)
+    at /opt/csw/include/c++/4.9.0/bits/stl_vector.h:425
 425                           _M_get_Tp_allocator()); }
 (gdb) fin
-Run till exit from #0  std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::~vector (
-    this=0xfffffd7fffdffa60, __in_chrg=<optimized out>)
-    at /opt/csw/include/c++/5.2.0/bits/stl_vector.h:425
+Run till exit from #0  std::vector<std::string, std::allocator<std::string> >::~vector (this=0xfffffd7fffdffa80, __in_chrg=<optimized out>)
+    at /opt/csw/include/c++/4.9.0/bits/stl_vector.h:425
 
 Program received signal SIGSEGV, Segmentation fault.
-0xfffffd7ffecaac88 in _free_unlocked () from /lib/64/libc.so.1
+0xfffffd7fff2de5fd in __exchange_and_add (__val=-1, __mem=0x401f56 <_init+6>)
+    at /home/maciej/src/opencsw/pkg/gcc4/trunk/work/solaris10-i386/build-isa-pentium_pro/objdir/i386-pc-solaris2.10/amd64/libstdc++-v3/include/ext/atomicity.h:49
+49      /home/maciej/src/opencsw/pkg/gcc4/trunk/work/solaris10-i386/build-isa-pentium_pro/objdir/i386-pc-solaris2.10/amd64/libstdc++-v3/include/ext/atomicity.h: No such file or directory.
 (gdb) 
 ```
